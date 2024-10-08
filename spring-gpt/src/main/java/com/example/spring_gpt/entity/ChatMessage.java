@@ -7,15 +7,19 @@ import jakarta.persistence.*;
 @Entity
 public class ChatMessage {
     @Id
-    private String messageId;
+    private String message_id;
 
     private String user;
 
-    private String avatar;
-
+    @Column(length = 2000)
     private String content;
 
     private String time;
+
+    @ManyToOne
+    @JoinColumn(name = "mask_id")
+    @JsonIgnore
+    private Mask mask;
 
     @ManyToOne
     @JoinColumn(name = "session_id")
@@ -30,12 +34,12 @@ public class ChatMessage {
         this.session = session;
     }
 
-    public String getMessageId() {
-        return messageId;
+    public String getMessage_id() {
+        return message_id;
     }
 
-    public void setMessageId(String messageId) {
-        this.messageId = messageId;
+    public void setMessage_id(String message_id) {
+        this.message_id = message_id;
     }
 
     public String getUser() {
@@ -44,14 +48,6 @@ public class ChatMessage {
 
     public void setUser(String user) {
         this.user = user;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getContent() {
@@ -68,5 +64,13 @@ public class ChatMessage {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Mask getMask() {
+        return mask;
+    }
+
+    public void setMask(Mask mask) {
+        this.mask = mask;
     }
 }
